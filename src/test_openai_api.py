@@ -2,5 +2,6 @@ from api import client
 from pprint import pprint
 
 
-# Printing the client object
-pprint(vars(client))
+models = client.models.list()
+for model in models:
+    print(model.id)
