@@ -119,8 +119,8 @@ if __name__ == "__main__":
 
     logger.info(create_chat_completion("gpt-3.5-turbo", hannibal_question, max_tokens=100).choices[0].message.content)
 
-    #logger.info(create_a_few_shot_chat_completion_task("gpt-4", capitalize_task, 1.2))
+    logger.info(create_a_few_shot_chat_completion_task("gpt-4", capitalize_task, 1.2))
 
-    #logger.info(create_a_few_shot_chat_completion_task("gpt-4", format_numbers_task))
+    logger.info(create_a_few_shot_chat_completion_task("gpt-4", format_numbers_task))
 
-    #logger.info(create_a_few_shot_chat_completion_task("gpt-4", seven_wonders_of_world_task, prefix='\n1.'))
+    logger.info(create_a_few_shot_chat_completion_task("gpt-4", seven_wonders_of_world_task, prefix='\n1.'))

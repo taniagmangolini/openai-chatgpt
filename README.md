@@ -29,8 +29,3 @@ workon openaigptforpythondevelopers
 # To deactivate
 deactivate
 ```
-
-
-
-
-workon openaigptforpythondevelopers
