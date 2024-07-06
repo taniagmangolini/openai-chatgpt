@@ -2,7 +2,7 @@
 
 Studies related to the book:
 
-Book: OpenAI GPT For Python Developers (Aymen El Amri), by Packt Publishing.
+OpenAI GPT For Python Developers (Aymen El Amri), by Packt Publishing.
 
 
 # Environment
