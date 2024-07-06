@@ -8,7 +8,7 @@ OpenAI GPT For Python Developers (Aymen El Amri), by Packt Publishing.
 # Environment
 
 ```
-# Install the dependencies and env variables
+# Install the dependencies and the env variables
 pip install --upgrade pip
 pip install virtualenv
 pip3 install virtualenvwrapper
