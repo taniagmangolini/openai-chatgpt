@@ -112,8 +112,7 @@ def create_a_few_shot_chat_completion_task(model, messages, temperature=0.2, pre
 
 if __name__ == "__main__":
 
-    #show_available_models()
-
+    show_available_models()
 
     logger.info(create_chat_completion("gpt-3.5-turbo", greeting).choices[0].message.content)
 
