@@ -10,5 +10,5 @@ with open(".env") as env:
 
 client = OpenAI(
   api_key=os.environ['API_KEY'], 
-  #organization=os.environ['ORG_ID']
+  organization=os.environ['ORG_ID']
 )
