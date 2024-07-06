@@ -19,7 +19,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 source ~/.bashrc
 
 # To create the env
-mkvirtualenv -p /usr/bin/python3.9 nome_do_seu_ambiente
+mkvirtualenv -p /usr/bin/python3.9 openaigptforpythondevelopers
 
 # To activate
 workon openaigptforpythondevelopers
