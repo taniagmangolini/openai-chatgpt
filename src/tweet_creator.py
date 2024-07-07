@@ -98,9 +98,9 @@ if __name__ == "__main__":
     )
 
 
-    #messages = get_messages_for_generate_keywords_from_text_task(text)
-    #keywords = generate_keywords_from_text("gpt-3.5-turbo", messages)
-    #logger.info(keywords)
+    messages = get_messages_for_generate_keywords_from_text_task(text)
+    keywords = generate_keywords_from_text("gpt-3.5-turbo", messages)
+    logger.info(keywords)
 
     tweet = create_tweet("gpt-3.5-turbo", text, n=2)
     logger.info(f"Tweet: {tweet}")
