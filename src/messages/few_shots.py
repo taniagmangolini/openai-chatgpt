@@ -331,3 +331,53 @@ def get_messages_for_rap_lyrics_generation_task(knowledge_about_rap):
             ),
         },
     ]
+
+
+def get_messages_for_prompt_and_behaviour(prompt, behaviour="You are a smart assistant."):
+    return [
+        {
+            "role": "system",
+            "content": behaviour,
+        },  
+        {
+            "role": "user", 
+            "content": prompt,
+        }
+    ]
+
+
+PROMPT_FOR_PYTHON_DOCKERFILE = """
+# Dockerfile for Node.js:
+FROM node:14
+WORKDIR /app
+COPY . /app
+RUN npm install
+EXPOSE 8080
+CMD ["node", "app.js"]
+
+# Dockerfile for Python:
+"""
+
+PROMPT_FOR_MYSQL_KUBERNETS_DEPLOYMENT = """
+# Kubernetes deployment for Redis:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        ports:
+        - containerPort: 6379
+
+# Kubernetes deployment for MySQL:
+"""
