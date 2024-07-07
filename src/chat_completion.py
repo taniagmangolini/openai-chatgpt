@@ -48,7 +48,7 @@ if __name__ == "__main__":
         .message.content
     )
 
-    # Streeam
+    # Stream example
 
     response = api.create_chat_completion(
         "gpt-3.5-turbo",
