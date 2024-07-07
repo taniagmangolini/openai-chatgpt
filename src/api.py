@@ -8,7 +8,4 @@ with open(".env") as env:
         os.environ[key] = value
 
 
-client = OpenAI(
-  api_key=os.environ['API_KEY'], 
-  organization=os.environ['ORG_ID']
-)
+client = OpenAI(api_key=os.environ["API_KEY"], organization=os.environ["ORG_ID"])

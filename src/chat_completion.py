@@ -1,16 +1,21 @@
 import sys
 import logging
+from typing import Optional
 from api import client
-from messages.questions import greeting, hannibal_question
-from messages.few_shots import capitalize_task, format_numbers_task, \
-seven_wonders_of_world_task
+from messages.questions import greeting, hannibal_question, storytelling
+from messages.few_shots import (
+    capitalize_task,
+    format_numbers_task,
+    seven_wonders_of_world_task,
+    sci_fi_movies_2021,
+)
 
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 handler = logging.StreamHandler(sys.stdout)
 handler.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
@@ -23,7 +28,18 @@ def show_available_models():
         logger.info(model.id)
 
 
-def create_chat_completion(model, messages, max_tokens=50):
+def create_chat_completion(
+    model,
+    messages,
+    temperature=1.0,
+    stop_token: Optional[list] = None,
+    max_tokens=50,
+    top_p=1,
+    stream=False,
+    frequency_penalty=0.0,
+    presence_penalty=0.0,
+    n=1,
+):
     """The text inputs to the models are referred to as "prompts".
     As models have no memory of past requests, all relevant information must be supplied
     as part of the conversation history in each request.
@@ -41,10 +57,20 @@ def create_chat_completion(model, messages, max_tokens=50):
     You pay by the input + output tokens (see the total_tokens in the response).
 
     The length of the output is determined by the API. To control the length of the output, you can use the max_tokens parameter.
-    The max_token parameter consider the prompt + model tokens. 
+    The max_token parameter consider the prompt + model tokens.
     This parameter is a number that depends on the model. For example, the max_tokens for the GPT-3.5-Turbo model is 4095.
+    Even with a higher token count, the response may still be cut off. To avoid this, you can use the stop parameter.
+    It is a list of stop strings. For instance, ['.', '\n', 'user:', 'assistant:']
 
-    See the docs: https://platform.openai.com/docs/guides/text-generation/managing-tokens
+    Streaming can be useful for applications where you want to display the output as it is generated.
+
+    Param presence_penalty: how much the model penalizes repeated use of the same topic or terms within a response (diversity control).
+    A higher presence penalty is useful to avoid redundancy.The default is 0.0.
+
+    Param frequency_penalty: how much the model penalizes the repeated use of the same word or phrase (repetition control).
+    This penalty encourages the model to use a wider vocabulary and prevents it from repeating itself. The default is 0.0.
+
+    If you want more than one result, you can use the n parameter. So the model will return more choices.
 
     Returns a ChatCompletion object. For instance:
 
@@ -76,50 +102,100 @@ def create_chat_completion(model, messages, max_tokens=50):
     """
     logger.info(f"Chat completition with {model}:")
     return client.chat.completions.create(
-        model=model, 
+        model=model,
         messages=messages,
-        max_tokens=max_tokens
-        #response_format={ "type": "json_object" }
+        max_tokens=max_tokens,
+        temperature=temperature,
+        stop=stop_token,
+        top_p=top_p,
+        stream=stream,
+        n=n,
+        # response_format={ "type": "json_object" }
     )
 
 
-def create_a_few_shot_chat_completion_task(model, messages, temperature=0.2, prefix=''):
-    '''Few-shot learning is a technique that allows you to train a model on a small dataset to perform a specific task.
+def create_a_few_shot_chat_completion_task(
+    model,
+    messages,
+    temperature=0.2,
+    prefix="",
+    stop_token: Optional[list] = None,
+    top_p=1,
+    frequency_penalty=0.0,
+    presence_penalty=0.0,
+):
+    """Few-shot learning is a technique that allows you to train a model on a small dataset to perform a specific task.
     For instance, capitalize the first letter of each word, except for articles, conjunctions, and prepositions.
 
-    In this example, the api is supplied with user messagens and assistant messages to instruct the model how the 
+    In this example, the api is supplied with user messagens and assistant messages to instruct the model how the
     responses should be. At the end, there is one more user message without the assistant response, that represents
     the task that the model should complete.
 
-    About the temperature parameter: Select a temperature value based on the desired trade-off between coherence 
+    About the temperature parameter: Select a temperature value based on the desired trade-off between coherence
     and creativity for your specific application. The temperature can range is from 0 to 2.
-    Lower values for temperature result in more consistent outputs (e.g. 0.2), 
+    Lower values for temperature result in more consistent outputs (e.g. 0.2),
     while higher values generate more diverse and creative results (e.g. 1.0).
+    When the model is too hot, it can generate words unrelated to the context. This is known as “hallucination”.
+    top_p can be an alternative to temperature for controlling the randomness of text generation in models like
+    GPT-3 or GPT-4. The model will only consider the most probable next words that, added together, reach a certain
+    cumulative probability (the top_p value). The default value is 1.0.
+    If you set top_p to a high value (e.g., 0.95), the model might generate more unexpected and creative twists.
+    If you set top_p to a lower value (e.g., 0.7), the story might be more straightforward and predictable.
+    top_p computes the cumulative probability distribution, and cut off as soon as that distribution exceeds the value of top_p.
+    For example, a top_p of 0.3 means that only the tokens comprising the top 30% probability mass are considered.
+    Using both temperature and top_p is possible but not recommended.
 
-    The model could takes our starter (prefix) and provides a suitable continuation. 
-    This powerful feature allows us to get specific outputs from the model without providing every detail; 
+    The model could takes our starter (prefix) and provides a suitable continuation.
+    This powerful feature allows us to get specific outputs from the model without providing every detail;
     the model fills in the gaps based on its training.
-
-    '''
+    """
     logger.info(f"Few shot chat completition with {model}:")
     response = client.chat.completions.create(
         model=model,
         messages=messages,
         temperature=temperature,
+        stop=stop_token,
+        top_p=top_p,
     )
-    return f'{prefix} {response.choices[0].message.content}'
+    return f"{prefix} {response.choices[0].message.content}"
 
 
 if __name__ == "__main__":
 
-    show_available_models()
+    # show_available_models()
 
-    logger.info(create_chat_completion("gpt-3.5-turbo", greeting).choices[0].message.content)
+    # logger.info(create_chat_completion("gpt-3.5-turbo", greeting).choices[0].message.content)
 
-    logger.info(create_chat_completion("gpt-3.5-turbo", hannibal_question, max_tokens=100).choices[0].message.content)
+    # logger.info(create_chat_completion("gpt-3.5-turbo", hannibal_question, max_tokens=100).choices[0].message.content)
 
-    logger.info(create_a_few_shot_chat_completion_task("gpt-4", capitalize_task, 1.2))
+    # logger.info(create_chat_completion("gpt-3.5-turbo", storytelling, temperature=2.0).choices[0].message.content)
 
-    logger.info(create_a_few_shot_chat_completion_task("gpt-4", format_numbers_task))
+    # Streeam
 
-    logger.info(create_a_few_shot_chat_completion_task("gpt-4", seven_wonders_of_world_task, prefix='\n1.'))
+    response = create_chat_completion(
+        "gpt-3.5-turbo",
+        storytelling,
+        temperature=2.0,
+        max_tokens=100,
+        stream=True,
+        frequency_penalty=1.0,
+    )
+    for message in response:
+        content = message.choices[0].delta.content
+        if content:
+            logger.info(content)
+
+    # Few shots
+
+    # stop_token = ["\n", 'user:', 'assistant:']
+    # logger.info(create_chat_completion("gpt-3.5-turbo", hannibal_question, stop_token=stop_token, max_tokens=100).choices[0].message.content)
+
+    # logger.info(create_a_few_shot_chat_completion_task("gpt-4", capitalize_task, 1.2))
+
+    # logger.info(create_a_few_shot_chat_completion_task("gpt-4", format_numbers_task))
+
+    # logger.info(create_a_few_shot_chat_completion_task("gpt-4", seven_wonders_of_world_task, prefix='\n1.'))
+
+    # logger.info(create_a_few_shot_chat_completion_task("gpt-3.5-turbo", sci_fi_movies_2021, prefix='\n1.'))
+
+    # logger.info(create_a_few_shot_chat_completion_task("gpt-3.5-turbo", sci_fi_movies_2021, prefix='\n1.', stop_token=["4."])) # only the first, second and third movies
