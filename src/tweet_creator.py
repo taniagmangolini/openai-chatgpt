@@ -1,6 +1,5 @@
-import sys
 import api
-import logging
+from logger import Logger
 from typing import Optional
 from messages.few_shots import (
     get_messages_for_generate_keywords_from_text_task,
@@ -8,14 +7,7 @@ from messages.few_shots import (
     get_messages_for_tweet_generation_task,
 )
 
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+logger = Logger().get_logger()
 
 
 def generate_keywords_from_text(model, messages):

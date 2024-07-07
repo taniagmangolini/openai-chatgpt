@@ -1,5 +1,4 @@
-import sys
-import logging
+from logger import Logger
 import api
 from messages.questions import greeting, hannibal_question, storytelling
 from messages.few_shots import (
@@ -10,13 +9,7 @@ from messages.few_shots import (
 )
 
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+logger = Logger().get_logger()
 
 
 if __name__ == "__main__":
