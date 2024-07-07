@@ -162,13 +162,13 @@ def create_a_few_shot_chat_completion_task(
 
 if __name__ == "__main__":
 
-    # show_available_models()
+    show_available_models()
 
-    # logger.info(create_chat_completion("gpt-3.5-turbo", greeting).choices[0].message.content)
+    logger.info(create_chat_completion("gpt-3.5-turbo", greeting).choices[0].message.content)
 
-    # logger.info(create_chat_completion("gpt-3.5-turbo", hannibal_question, max_tokens=100).choices[0].message.content)
+    logger.info(create_chat_completion("gpt-3.5-turbo", hannibal_question, max_tokens=100).choices[0].message.content)
 
-    # logger.info(create_chat_completion("gpt-3.5-turbo", storytelling, temperature=2.0).choices[0].message.content)
+    logger.info(create_chat_completion("gpt-3.5-turbo", storytelling, temperature=2.0).choices[0].message.content)
 
     # Streeam
 
@@ -187,15 +187,15 @@ if __name__ == "__main__":
 
     # Few shots
 
-    # stop_token = ["\n", 'user:', 'assistant:']
-    # logger.info(create_chat_completion("gpt-3.5-turbo", hannibal_question, stop_token=stop_token, max_tokens=100).choices[0].message.content)
+    stop_token = ["\n", 'user:', 'assistant:']
+    logger.info(create_chat_completion("gpt-3.5-turbo", hannibal_question, stop_token=stop_token, max_tokens=100).choices[0].message.content)
 
-    # logger.info(create_a_few_shot_chat_completion_task("gpt-4", capitalize_task, 1.2))
+    logger.info(create_a_few_shot_chat_completion_task("gpt-4", capitalize_task, 1.2))
 
-    # logger.info(create_a_few_shot_chat_completion_task("gpt-4", format_numbers_task))
+    logger.info(create_a_few_shot_chat_completion_task("gpt-4", format_numbers_task))
 
-    # logger.info(create_a_few_shot_chat_completion_task("gpt-4", seven_wonders_of_world_task, prefix='\n1.'))
+    logger.info(create_a_few_shot_chat_completion_task("gpt-4", seven_wonders_of_world_task, prefix='\n1.'))
 
-    # logger.info(create_a_few_shot_chat_completion_task("gpt-3.5-turbo", sci_fi_movies_2021, prefix='\n1.'))
+    logger.info(create_a_few_shot_chat_completion_task("gpt-3.5-turbo", sci_fi_movies_2021, prefix='\n1.'))
 
-    # logger.info(create_a_few_shot_chat_completion_task("gpt-3.5-turbo", sci_fi_movies_2021, prefix='\n1.', stop_token=["4."])) # only the first, second and third movies
+    logger.info(create_a_few_shot_chat_completion_task("gpt-3.5-turbo", sci_fi_movies_2021, prefix='\n1.', stop_token=["4."])) # only the first, second and third movies
