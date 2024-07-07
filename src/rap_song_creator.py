@@ -30,10 +30,8 @@ def generate_rap_lyrics(model):
 
 if __name__ == "__main__":   
     """General Knowledge Prompting which consists of generating knowledge about 
-    the task by the model and then using this knowledge to feed the model and 
-    generate the output. It uses few-shot demonstrations to generate question-related
-    knowledge and then uses a second model to make predictions and select and 
-    highest confidence.
+    the task by the model and then using this knowledge to feed another model and 
+    generate the output.
     """
     lyrics = generate_rap_lyrics("gpt-3.5-turbo")
     logger.info(f"Lyrics: {lyrics}")
