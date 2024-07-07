@@ -1,3 +1,5 @@
+# Few-shot learning is a technique that allows you to train a model on a small dataset to perform a specific task.
+
 capitalize_task = [
     {
         "role": "user",
@@ -111,55 +113,52 @@ sci_fi_movies_2021 = [
 
 def get_messages_for_generate_keywords_from_text_task(text):
     return [
-    {
-        "role": "system",
-        "content": "You are a helpful bot that helps "
-        "people extract keywords from a text."
-        "Keywords are words that are important "
-        "in a text.",
-    },
-    {
-        "role": "user",
-        "content": "In a whimsical town, old tortoise Orion "
-        "scattered sunflower seeds atop a hill, "
-        "believing they carried wishes to the stars. "
-        "Unknown to him, children below rejoiced, "
-        "believing these seeds were blessings from "
-        "the sky. Sometimes, simple acts create magic.",
-    },
-    {
-        "role": "assistant",
-        "content": '["whimsical town", "old tortoise",'
-        '"Orion", "sunflower seeds",'
-        '"hill", "wishes", "stars", '
-        '"children", "blessings", "sky",'
-        '"simple acts", "magic"]',
-    },
-    {
-        "role": "user",
-        "content": "In the world of quantum computing, the Hadron "
-        "Processing Unit (HPU) stands out. Utilizing "
-        "qubit superposition, it offers exceptional "
-        "speeds. Paired with nanophotonic circuits, "
-        "it ensures fast qubit communication, while "
-        "quantum tunneling aids in error correction. "
-        "With quantum annealing algorithms, the HPU "
-        "brings us closer to achieving quantum supremacy.",
-    },
-    {
-        "role": "assistant",
-        "content": '["quantum computing", "Hadron Processing Unit", '
-        '"HPU", "qubit superposition", "speeds",  '
-        '"nanophotonic circuits", "qubit communication",  '
-        '"quantum tunneling", "error correction",  '
-        '"quantum annealing algorithms",  '
-        '"quantum supremacy"] ',
-    },
-    {
-        "role": "user",
-        "content": text
-    },
-]
+        {
+            "role": "system",
+            "content": "You are a helpful bot that helps "
+            "people extract keywords from a text."
+            "Keywords are words that are important "
+            "in a text.",
+        },
+        {
+            "role": "user",
+            "content": "In a whimsical town, old tortoise Orion "
+            "scattered sunflower seeds atop a hill, "
+            "believing they carried wishes to the stars. "
+            "Unknown to him, children below rejoiced, "
+            "believing these seeds were blessings from "
+            "the sky. Sometimes, simple acts create magic.",
+        },
+        {
+            "role": "assistant",
+            "content": '["whimsical town", "old tortoise",'
+            '"Orion", "sunflower seeds",'
+            '"hill", "wishes", "stars", '
+            '"children", "blessings", "sky",'
+            '"simple acts", "magic"]',
+        },
+        {
+            "role": "user",
+            "content": "In the world of quantum computing, the Hadron "
+            "Processing Unit (HPU) stands out. Utilizing "
+            "qubit superposition, it offers exceptional "
+            "speeds. Paired with nanophotonic circuits, "
+            "it ensures fast qubit communication, while "
+            "quantum tunneling aids in error correction. "
+            "With quantum annealing algorithms, the HPU "
+            "brings us closer to achieving quantum supremacy.",
+        },
+        {
+            "role": "assistant",
+            "content": '["quantum computing", "Hadron Processing Unit", '
+            '"HPU", "qubit superposition", "speeds",  '
+            '"nanophotonic circuits", "qubit communication",  '
+            '"quantum tunneling", "error correction",  '
+            '"quantum annealing algorithms",  '
+            '"quantum supremacy"] ',
+        },
+        {"role": "user", "content": text},
+    ]
 
 
 def get_messages_for_generate_hashtags_from_text_task(text):
@@ -213,7 +212,7 @@ def get_messages_for_generate_hashtags_from_text_task(text):
             "role": "assistant",
             "content": "#Friendship #FriendshipQuotes #Support",
         },
-        {"role": "user", "content": text },
+        {"role": "user", "content": text},
     ]
 
 

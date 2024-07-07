@@ -35,6 +35,7 @@ def create_chat_completion(
     model,
     messages,
     temperature=1.0,
+    prefix="",
     stop_token: Optional[list] = None,
     max_tokens=50,
     top_p=1,
@@ -44,12 +45,10 @@ def create_chat_completion(
     n=1,
 ):
     """The text inputs to the models are referred to as "prompts".
-    As models have no memory of past requests, all relevant information must be supplied
-    as part of the conversation history in each request.
     Chat models will take a list of messages as input and return a -generated message as output.
-    They are not deterministic by default, but you can set a seed or fingerprint param to make it deterministic.
-    Messages input must be an array of message objects, where
-    each object has a role (either "system", "user", or "assistant") and content:
+    They are not deterministic by default, but you can set params to make it more deterministic.
+    Messages input must be an array of message objects, where each object has a
+    role (either "system", "user", or "assistant") and content:
 
     - The system message (optional) helps set the behavior of the assistant. For instance: 'You are a movie expert.'
     - The user role represents the user and is used to send a message to the model.
@@ -64,6 +63,25 @@ def create_chat_completion(
     This parameter is a number that depends on the model. For example, the max_tokens for the GPT-3.5-Turbo model is 4095.
     Even with a higher token count, the response may still be cut off. To avoid this, you can use the stop parameter.
     It is a list of stop strings. For instance, ['.', '\n', 'user:', 'assistant:']
+
+    About the temperature parameter: Select a temperature value based on the desired trade-off between coherence
+    and creativity for your specific application. The temperature can range is from 0 to 2.
+    Lower values for temperature result in more consistent outputs (e.g. 0.2),
+    while higher values generate more diverse and creative results (e.g. 1.0).
+    When the model is too hot, it can generate words unrelated to the context. This is known as “hallucination”.
+
+    top_p param can be an alternative to temperature for controlling the randomness of text generation in models like
+    GPT-3 or GPT-4. The model will only consider the most probable next words that, added together, reach a certain
+    cumulative probability (the top_p value). The default value is 1.0.
+    If you set top_p to a high value (e.g., 0.95), the model might generate more unexpected and creative twists.
+    If you set top_p to a lower value (e.g., 0.7), the story might be more straightforward and predictable.
+    top_p computes the cumulative probability distribution, and cut off as soon as that distribution exceeds the value of top_p.
+    For example, a top_p of 0.3 means that only the tokens comprising the top 30% probability mass are considered.
+    Using both temperature and top_p is possible but not recommended.
+
+    The model could takes our starter (prefix) and provides a suitable continuation.
+    This powerful feature allows us to get specific outputs from the model without providing every detail;
+    the model fills in the gaps based on its training.
 
     Streaming can be useful for applications where you want to display the output as it is generated.
 
@@ -104,7 +122,7 @@ def create_chat_completion(
         )
     """
     logger.info(f"Performing a chat completion with {model}...")
-    return client.chat.completions.create(
+    response = client.chat.completions.create(
         model=model,
         messages=messages,
         max_tokens=max_tokens,
@@ -116,53 +134,9 @@ def create_chat_completion(
         # response_format={ "type": "json_object" }
     )
 
+    if stream:
+        return response
 
-def create_a_few_shot_chat_completion_task(
-    model,
-    messages,
-    temperature=0.2,
-    prefix="",
-    stop_token: Optional[list] = None,
-    top_p=1,
-    max_tokens=100,
-    frequency_penalty=0.0,
-    presence_penalty=0.0,
-    n=1,
-):
-    """Few-shot learning is a technique that allows you to train a model on a small dataset to perform a specific task.
-    For instance, capitalize the first letter of each word, except for articles, conjunctions, and prepositions.
-
-    In this example, the api is supplied with user messagens and assistant messages to instruct the model how the
-    responses should be. At the end, there is one more user message without the assistant response, that represents
-    the task that the model should complete.
-
-    About the temperature parameter: Select a temperature value based on the desired trade-off between coherence
-    and creativity for your specific application. The temperature can range is from 0 to 2.
-    Lower values for temperature result in more consistent outputs (e.g. 0.2),
-    while higher values generate more diverse and creative results (e.g. 1.0).
-    When the model is too hot, it can generate words unrelated to the context. This is known as “hallucination”.
-    top_p can be an alternative to temperature for controlling the randomness of text generation in models like
-    GPT-3 or GPT-4. The model will only consider the most probable next words that, added together, reach a certain
-    cumulative probability (the top_p value). The default value is 1.0.
-    If you set top_p to a high value (e.g., 0.95), the model might generate more unexpected and creative twists.
-    If you set top_p to a lower value (e.g., 0.7), the story might be more straightforward and predictable.
-    top_p computes the cumulative probability distribution, and cut off as soon as that distribution exceeds the value of top_p.
-    For example, a top_p of 0.3 means that only the tokens comprising the top 30% probability mass are considered.
-    Using both temperature and top_p is possible but not recommended.
-
-    The model could takes our starter (prefix) and provides a suitable continuation.
-    This powerful feature allows us to get specific outputs from the model without providing every detail;
-    the model fills in the gaps based on its training.
-    """
-    logger.info(f"Performing a few shot chat completion with {model}...")
-    response = client.chat.completions.create(
-        model=model,
-        messages=messages,
-        temperature=temperature,
-        stop=stop_token,
-        top_p=top_p,
-        n=n,
-    )
     if n == 1:
         return f"{prefix} {response.choices[0].message.content}"
-    return [f"{prefix} {choice.message.content}" for choice in response.choices ]
+    return [f"{prefix} {choice.message.content}" for choice in response.choices]
