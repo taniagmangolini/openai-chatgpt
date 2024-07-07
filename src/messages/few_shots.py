@@ -107,3 +107,69 @@ sci_fi_movies_2021 = [
     },
     {"role": "user", "content": "Name fantasy movies that came out in 2021."},
 ]
+
+
+keywords_task = [
+    {
+        "role": "system",
+        "content": "You are a helpful bot that helps "
+        "people extract keywords from a text."
+        "Keywords are words that are important "
+        "in a text.",
+    },
+    {
+        "role": "user",
+        "content": "In a whimsical town, old tortoise Orion "
+        "scattered sunflower seeds atop a hill, "
+        "believing they carried wishes to the stars. "
+        "Unknown to him, children below rejoiced, "
+        "believing these seeds were blessings from "
+        "the sky. Sometimes, simple acts create magic.",
+    },
+    {
+        "role": "assistant",
+        "content": '["whimsical town", "old tortoise",'
+        '"Orion", "sunflower seeds",'
+        '"hill", "wishes", "stars", '
+        '"children", "blessings", "sky",'
+        '"simple acts", "magic"]',
+    },
+    {
+        "role": "user",
+        "content": "In the world of quantum computing, the Hadron "
+        "Processing Unit (HPU) stands out. Utilizing "
+        "qubit superposition, it offers exceptional "
+        "speeds. Paired with nanophotonic circuits, "
+        "it ensures fast qubit communication, while "
+        "quantum tunneling aids in error correction. "
+        "With quantum annealing algorithms, the HPU "
+        "brings us closer to achieving quantum supremacy.",
+    },
+    {
+        "role": "assistant",
+        "content": '["quantum computing", "Hadron Processing Unit", '
+        '"HPU", "qubit superposition", "speeds",  '
+        '"nanophotonic circuits", "qubit communication",  '
+        '"quantum tunneling", "error correction",  '
+        '"quantum annealing algorithms",  '
+        '"quantum supremacy"] ',
+    },
+    {
+        "role": "user",
+        "content": "The first programming language to be invented was "
+        "Plankalkül, which was designed by Konrad Zuse in "
+        "the 1940s, but not publicly known until 1972 "
+        "(and not implemented until 1998). The first "
+        "widely known and successful high-level programming "
+        "language was Fortran, developed from 1954 to 1957 "
+        "by a team of IBM researchers led by John Backus. "
+        "The success of FORTRAN led to the formation of a "
+        'committee of scientists to develop a "universal" '
+        "computer language; the result of their effort was "
+        "ALGOL 58. Separately, John McCarthy of MIT developed "
+        "Lisp, the first language with origins in academia "
+        "to be successful. With the success of these initial "
+        "efforts, programming languages became an active "
+        "topic of research in the 1960s and beyond.",
+    },
+]
