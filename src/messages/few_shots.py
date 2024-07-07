@@ -302,3 +302,32 @@ def get_messages_for_tweet_generation_task(text, hashtags):
         },
         {"role": "user", "content": f"{text}. {hashtags}"},
     ]
+
+
+def get_messages_for_rap_knowledge_generation_task(prompt):
+    return [
+        {
+            "role": "system",
+            "content": "You are a smart assistant.",
+        },
+        {
+            "role": "user",
+            "content": prompt,
+        },
+    ]
+
+
+def get_messages_for_rap_lyrics_generation_task(knowledge_about_rap):
+    return [
+        {
+            "role": "system",
+            "content": "You are a popular old-school rap lyricist.",
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Context: {knowledge_about_rap}"
+                "Task: Create lyrics for an old-school rap song about justice and equality"
+            ),
+        },
+    ]
