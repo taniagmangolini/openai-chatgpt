@@ -103,7 +103,7 @@ def create_chat_completion(
             )
         )
     """
-    logger.info(f"Chat completition with {model}:")
+    logger.info(f"Performing a chat completion with {model}...")
     return client.chat.completions.create(
         model=model,
         messages=messages,
@@ -124,8 +124,10 @@ def create_a_few_shot_chat_completion_task(
     prefix="",
     stop_token: Optional[list] = None,
     top_p=1,
+    max_tokens=100,
     frequency_penalty=0.0,
     presence_penalty=0.0,
+    n=1,
 ):
     """Few-shot learning is a technique that allows you to train a model on a small dataset to perform a specific task.
     For instance, capitalize the first letter of each word, except for articles, conjunctions, and prepositions.
@@ -152,12 +154,15 @@ def create_a_few_shot_chat_completion_task(
     This powerful feature allows us to get specific outputs from the model without providing every detail;
     the model fills in the gaps based on its training.
     """
-    logger.info(f"Few shot chat completition with {model}:")
+    logger.info(f"Performing a few shot chat completion with {model}...")
     response = client.chat.completions.create(
         model=model,
         messages=messages,
         temperature=temperature,
         stop=stop_token,
         top_p=top_p,
+        n=n,
     )
-    return f"{prefix} {response.choices[0].message.content}"
+    if n == 1:
+        return f"{prefix} {response.choices[0].message.content}"
+    return [f"{prefix} {choice.message.content}" for choice in response.choices ]

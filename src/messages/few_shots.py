@@ -109,7 +109,8 @@ sci_fi_movies_2021 = [
 ]
 
 
-keywords_task = [
+def get_messages_for_generate_keywords_from_text_task(text):
+    return [
     {
         "role": "system",
         "content": "You are a helpful bot that helps "
@@ -156,20 +157,149 @@ keywords_task = [
     },
     {
         "role": "user",
-        "content": "The first programming language to be invented was "
-        "Plankalkül, which was designed by Konrad Zuse in "
-        "the 1940s, but not publicly known until 1972 "
-        "(and not implemented until 1998). The first "
-        "widely known and successful high-level programming "
-        "language was Fortran, developed from 1954 to 1957 "
-        "by a team of IBM researchers led by John Backus. "
-        "The success of FORTRAN led to the formation of a "
-        'committee of scientists to develop a "universal" '
-        "computer language; the result of their effort was "
-        "ALGOL 58. Separately, John McCarthy of MIT developed "
-        "Lisp, the first language with origins in academia "
-        "to be successful. With the success of these initial "
-        "efforts, programming languages became an active "
-        "topic of research in the 1960s and beyond.",
+        "content": text
     },
 ]
+
+
+def get_messages_for_generate_hashtags_from_text_task(text):
+    return [
+        {
+            "role": "system",
+            "content": "You are a helpful bot that helps people "
+            "extract hashtags from text to use them "
+            "on Twitter.",
+        },
+        {
+            "role": "user",
+            "content": "In a whimsical town, old tortoise Orion "
+            "scattered sunflower seeds atop a hill, "
+            "believing they carried wishes to the "
+            "stars. Unknown to him, children below "
+            "rejoiced, believing these seeds were "
+            "blessings from the sky. Sometimes, "
+            "simple acts create magic.",
+        },
+        {
+            "role": "assistant",
+            "content": "#Wishes #Blessings  #Magic",
+        },
+        {
+            "role": "user",
+            "content": "In the world of quantum computing, "
+            "the Hadron Processing Unit (HPU) "
+            "stands out. Utilizing qubit superposition, "
+            "it offers exceptional speeds. Paired with "
+            "nanophotonic circuits, it ensures fast qubit "
+            "communication, while quantum tunneling aids "
+            "in error correction. With quantum annealing "
+            "algorithms, the HPU brings us closer to "
+            "achieving quantum supremacy.",
+        },
+        {
+            "role": "assistant",
+            "content": "#QuantumComputing #Qubit #QuantumAlgorithms",
+        },
+        {
+            "role": "user",
+            "content": "What makes a good friend is someone who is "
+            "there for you when you need them. They are "
+            "someone who will listen to your problems "
+            "and help you find solutions. They are "
+            "someone who will be there for you "
+            "when you need them most.",
+        },
+        {
+            "role": "assistant",
+            "content": "#Friendship #FriendshipQuotes #Support",
+        },
+        {"role": "user", "content": text },
+    ]
+
+
+def get_messages_for_tweet_generation_task(text, hashtags):
+    return [
+        {
+            "role": "system",
+            "content": "You are an intelligent assistant that assists "
+            "users in creating a tweet with hashtags based "
+            "on a given text. The tweet should be between "
+            "100 and 280 characters in length.",
+        },
+        {
+            "role": "user",
+            "content": "OpenAI has been pushing the boundaries of large "
+            "language models, making them more accessible to "
+            "the public and businesses alike. The models can "
+            "generate human-like text, assist in writing, "
+            "answer questions, and more. "
+            "#OpenAI #AI #LanguageModels",
+        },
+        {
+            "role": "assistant",
+            "content": "OpenAI advances large language models for public "
+            "and business use. They generate human-like text, "
+            "assist writing, and answer questions. "
+            "#OpenAI #AI #LanguageModels",
+        },
+        {
+            "role": "user",
+            "content": "The Eiffel Tower, located in Paris, France, "
+            "is a world-renowned architectural marvel and "
+            "a symbol of love. Many tourists visit it annually "
+            "to witness its grandeur and romantic ambiance. "
+            "#EiffelTower #Paris #Romance",
+        },
+        {
+            "role": "assistant",
+            "content": "Paris's Eiffel Tower is an iconic symbol of love, "
+            "drawing tourists worldwide to its majestic "
+            "presence. "
+            "#EiffelTower #Paris #Love",
+        },
+        {
+            "role": "user",
+            "content": "Yoga is an ancient practice originating from India. "
+            "It focuses on mental, physical, and spiritual "
+            "well-being, offering exercises and meditations "
+            "that promote holistic health. "
+            "#Yoga #Wellness #Meditation",
+        },
+        {
+            "role": "assistant",
+            "content": "Yoga, from India, balances mind, body, and spirit "
+            "through exercises and meditation. "
+            "#Yoga #HolisticHealth #Meditation",
+        },
+        {
+            "role": "user",
+            "content": "Pandas are native to South Central China and are known "
+            "for their distinct black and white appearance. They "
+            "mostly eat bamboo and are a symbol of peace and "
+            "conservation efforts. "
+            "#Pandas #China #Conservation",
+        },
+        {
+            "role": "assistant",
+            "content": "Native to China, pandas with their iconic black and "
+            "white look are symbols of peace and conservation. "
+            "#Pandas #China #Peace",
+        },
+        {
+            "role": "user",
+            "content": "The Grand Canyon is a steep-sided canyon carved by "
+            "the Colorado River in the U.S. state of Arizona. "
+            "It's one of the most famous landmarks and is known "
+            "for its immense size and its intricate and colorful "
+            "landscape. "
+            "#GrandCanyon #Arizona #Nature",
+        },
+        {
+            "role": "assistant",
+            "content": "The Grand Canyon, carved by the Colorado River in "
+            "Arizona, is famous for its immense size and colorful "
+            "landscape. "
+            "#GrandCanyon #Arizona #Nature",
+        },
+        {"role": "user", "content": f"{text}. {hashtags}"},
+    ]
