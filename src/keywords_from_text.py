@@ -1,7 +1,7 @@
 import sys
+import api
 import logging
 from typing import Optional
-from api import client
 from messages.few_shots import keywords_task
 
 
@@ -14,12 +14,9 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-def generate_keywords_from_text(model, messages, temperature=0.2):
-    response = client.chat.completions.create(
-        model=model, messages=messages, temperature=temperature
-    )
-    return f"{response.choices[0].message.content}"
-
+def generate_keywords_from_text(model, messages):
+    response = api.create_a_few_shot_chat_completion_task(model, messages)
+    return f"{response}"
 
 if __name__ == "__main__":
     logger.info(generate_keywords_from_text("gpt-3.5-turbo", keywords_task))
