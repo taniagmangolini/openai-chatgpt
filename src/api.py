@@ -14,7 +14,6 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-
 with open(".env") as env:
     for line in env:
         key, value = line.strip().split("=")

@@ -18,5 +18,6 @@ def generate_keywords_from_text(model, messages):
     response = api.create_a_few_shot_chat_completion_task(model, messages)
     return f"{response}"
 
+
 if __name__ == "__main__":
     logger.info(generate_keywords_from_text("gpt-3.5-turbo", keywords_task))

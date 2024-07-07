@@ -63,12 +63,15 @@ if __name__ == "__main__":
         if content:
             logger.info(content)
 
+    # Few shots examples
 
-    # Few shots
+    logger.info(
+        api.create_a_few_shot_chat_completion_task("gpt-4", capitalize_task, 1.2)
+    )
 
-    logger.info(api.create_a_few_shot_chat_completion_task("gpt-4", capitalize_task, 1.2))
-
-    logger.info(api.create_a_few_shot_chat_completion_task("gpt-4", format_numbers_task))
+    logger.info(
+        api.create_a_few_shot_chat_completion_task("gpt-4", format_numbers_task)
+    )
 
     logger.info(
         api.create_a_few_shot_chat_completion_task(
@@ -82,9 +85,11 @@ if __name__ == "__main__":
         )
     )
 
-    # only the first, second and third movies
     logger.info(
         api.create_a_few_shot_chat_completion_task(
-            "gpt-3.5-turbo", sci_fi_movies_2021, prefix="\n1.", stop_token=["4."]
+            "gpt-3.5-turbo",
+            sci_fi_movies_2021,
+            prefix="\n1.",
+            stop_token=["4."],  # only the first, second and third movies
         )
-    )  
+    )
