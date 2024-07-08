@@ -381,3 +381,56 @@ spec:
 
 # Kubernetes deployment for MySQL:
 """
+
+
+cli_task = [
+  {
+    "role": "system",
+    "content": 
+      "You are a smart assistant."
+  },
+  {
+    "role": "user",
+    "content": 
+      "List all the files in the current "
+      "directory."
+  },
+  {
+    "role": "assistant",
+    "content": 
+      "ls -l"
+  },
+  {
+    "role": "user",
+    "content":
+      "List all the files in the current "
+      "directory, including hidden files."
+  },
+  {
+    "role": "assistant",
+    "content": 
+      "ls -la"
+  },
+  {
+    "role": "user",
+    "content": 
+      "Delete all the files in the current "
+      "directory."
+  },
+  {
+    "role": "assistant",
+    "content": 
+      "rm *"
+  },
+  {
+    "role": "user",
+    "content": 
+      "Count the number of occurrences of "
+      "the word 'sun' in the file 'test.txt'."
+  },
+  {
+    "role": "assistant",
+    "content": 
+      "grep -o 'sun' test.txt | wc -l"
+  },
+]
