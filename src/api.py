@@ -1,5 +1,5 @@
 import os
-from util.logger import Logger
+from logger import Logger
 from typing import Optional
 from openai import OpenAI
 
@@ -133,3 +133,12 @@ def create_chat_completion(
     if n == 1:
         return f"{prefix} {response.choices[0].message.content}"
     return [f"{prefix} {choice.message.content}" for choice in response.choices]
+
+
+
+def create_embedding(model, input):
+    response = client.embeddings.create(
+        model=model,
+        input=input
+    )
+    return response

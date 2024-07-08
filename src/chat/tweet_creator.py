@@ -1,5 +1,5 @@
 import api
-from util.logger import Logger
+from logger import Logger
 from typing import Optional
 from messages.few_shots import (
     get_messages_for_generate_keywords_from_text_task,

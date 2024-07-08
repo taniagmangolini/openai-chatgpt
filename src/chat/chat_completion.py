@@ -1,4 +1,4 @@
-from util.logger import Logger
+from logger import Logger
 import api
 from messages.general import greeting, hannibal_question, storytelling
 from messages.few_shots import (

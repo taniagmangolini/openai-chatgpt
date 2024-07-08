@@ -2,6 +2,8 @@
 
 Studies related to the book:
 
+## Prompt engineering techniques
+
 OpenAI GPT For Python Developers (Aymen El Amri), by Packt Publishing.
 
 Some prompt engineering techniques:
@@ -16,8 +18,18 @@ Some prompt engineering techniques:
 - Transfer Learning, ReAct (Reason + Act)
 - Others
 
+## Embedding
+
+Embeddings represent real-world objects and relationships in the form of vectors that measures the similarity between two entities.
+
+ Text embeddings represent text strings as vectors, enabling the measurement of similarity between them with the intention of finding the most relevant results for a search query (Search), grouping text strings based on their similarity (clustering), recommending items with similar text (recommendation), identifying text strings that greatly differ from others (anomaly detector), analyzing the differences between text strings (diversity), and labeling text strings based on their closest match (classification).
+
+ “Ada” is one of the best models available on OpenAI for embedding.
+ 
 
 # Environment
+
+Create an API key on https://platform.openai.com/api-keys and place it in an .env file on the src folder with the API_KEY and ORG_ID.
 
 ```
 # Install the dependencies and the env variables
@@ -38,4 +50,12 @@ workon openaigptforpythondevelopers
 
 # To deactivate
 deactivate
+```
+
+# Running the scripts
+
+```
+python -m chat.chat_completion
+
+python -m embedding.first_embedding
 ```

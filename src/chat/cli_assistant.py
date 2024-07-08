@@ -2,7 +2,7 @@ import api
 import os
 import math
 import click
-from util.logger import Logger
+from logger import Logger
 from messages.few_shots import cli_task
 
 
