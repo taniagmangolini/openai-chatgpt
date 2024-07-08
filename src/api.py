@@ -1,5 +1,5 @@
 import os
-from logger import Logger
+from util.logger import Logger
 from typing import Optional
 from openai import OpenAI
 

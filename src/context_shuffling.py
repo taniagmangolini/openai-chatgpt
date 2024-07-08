@@ -1,5 +1,5 @@
 import api
-from logger import Logger
+from util.logger import Logger
 from typing import Optional
 from messages.few_shots import (
     get_messages_for_prompt_and_behaviour
