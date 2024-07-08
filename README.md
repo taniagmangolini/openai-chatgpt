@@ -4,6 +4,18 @@ Studies related to the book:
 
 OpenAI GPT For Python Developers (Aymen El Amri), by Packt Publishing.
 
+Some prompt engineering techniques:
+
+- Zero-shot learning: prompting an LLM without any examples.
+- Few-shot learning: prompting an LLM with examples of task.
+- General knowledge prompting: ask the LLM to generate useful information about a given topic before generating a final response.
+- Chain of Thought (CoT): Shows the LLM examples of logical reasoning to approach a solution to instruct it to follow a similar m ethod of reasoning in its response.
+- Zero-shot CoT
+- Auto Chain of Thought (AutoCoT)
+- Self-consistency
+- Transfer Learning, ReAct (Reason + Act)
+- Others
+
 
 # Environment
 

@@ -1,6 +1,6 @@
 from util.logger import Logger
 import api
-from messages.questions import greeting, hannibal_question, storytelling
+from messages.general import greeting, hannibal_question, storytelling
 from messages.few_shots import (
     capitalize_task,
     format_numbers_task,
