@@ -40,7 +40,7 @@ Task 1: \
 
 logger.info(f"Building a {number_of_tasks} items to-do list to {topic}...")
 
-stop_token = [f"Task {number_of_tasks + 1}:", "assistant:", "user:"]
+stop_token = [f"Task {number_of_tasks + 1}:", f"{number_of_tasks + 1}.", "assistant:", "user:"]
 
 messages = get_messages_for_prompt_and_behaviour(prompt)
 to_to_list = result = api.create_chat_completion(
