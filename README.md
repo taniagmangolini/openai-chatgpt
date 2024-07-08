@@ -1,7 +1,5 @@
 # Prompt Engineering with Python and OpenAI API
 
-Studies related to the book:
-
 ## Prompt engineering techniques
 
 OpenAI GPT For Python Developers (Aymen El Amri), by Packt Publishing.
