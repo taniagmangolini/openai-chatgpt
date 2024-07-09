@@ -12,12 +12,16 @@ is approximately 6,143 words (8191 tokens x 0.75).
 """
 result = api.create_embedding(
     model="text-embedding-ada-002",
-    input="I am a programmer"
+    input = [
+        "I am a programmer", 
+        "I am a writer"
+    ]
 )
 
 
-logger.info(f"result: {result}")
-logger.info(f"Embedding: {response.data[0].embedding}") #These floating points represent the embedding of the input text
+#logger.info(f"result: {result}")
+for i, embedding in enumerate(result.data):
+    logger.info(f"Embedding: {embedding}") #These floating points represent the embedding of the input text
 
 
 """
