@@ -135,10 +135,6 @@ def create_chat_completion(
     return [f"{prefix} {choice.message.content}" for choice in response.choices]
 
 
-
 def create_embedding(model, input):
-    response = client.embeddings.create(
-        model=model,
-        input=input
-    )
+    response = client.embeddings.create(model=model, input=input)
     return response

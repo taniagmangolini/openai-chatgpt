@@ -333,16 +333,18 @@ def get_messages_for_rap_lyrics_generation_task(knowledge_about_rap):
     ]
 
 
-def get_messages_for_prompt_and_behaviour(prompt, behaviour="You are a smart assistant."):
+def get_messages_for_prompt_and_behaviour(
+    prompt, behaviour="You are a smart assistant."
+):
     return [
         {
             "role": "system",
             "content": behaviour,
-        },  
+        },
         {
-            "role": "user", 
+            "role": "user",
             "content": prompt,
-        }
+        },
     ]
 
 
@@ -384,53 +386,21 @@ spec:
 
 
 cli_task = [
-  {
-    "role": "system",
-    "content": 
-      "You are a smart assistant."
-  },
-  {
-    "role": "user",
-    "content": 
-      "List all the files in the current "
-      "directory."
-  },
-  {
-    "role": "assistant",
-    "content": 
-      "ls -l"
-  },
-  {
-    "role": "user",
-    "content":
-      "List all the files in the current "
-      "directory, including hidden files."
-  },
-  {
-    "role": "assistant",
-    "content": 
-      "ls -la"
-  },
-  {
-    "role": "user",
-    "content": 
-      "Delete all the files in the current "
-      "directory."
-  },
-  {
-    "role": "assistant",
-    "content": 
-      "rm *"
-  },
-  {
-    "role": "user",
-    "content": 
-      "Count the number of occurrences of "
-      "the word 'sun' in the file 'test.txt'."
-  },
-  {
-    "role": "assistant",
-    "content": 
-      "grep -o 'sun' test.txt | wc -l"
-  },
+    {"role": "system", "content": "You are a smart assistant."},
+    {"role": "user", "content": "List all the files in the current " "directory."},
+    {"role": "assistant", "content": "ls -l"},
+    {
+        "role": "user",
+        "content": "List all the files in the current "
+        "directory, including hidden files.",
+    },
+    {"role": "assistant", "content": "ls -la"},
+    {"role": "user", "content": "Delete all the files in the current " "directory."},
+    {"role": "assistant", "content": "rm *"},
+    {
+        "role": "user",
+        "content": "Count the number of occurrences of "
+        "the word 'sun' in the file 'test.txt'.",
+    },
+    {"role": "assistant", "content": "grep -o 'sun' test.txt | wc -l"},
 ]
