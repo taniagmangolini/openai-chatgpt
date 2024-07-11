@@ -9,7 +9,7 @@ OpenAI GPT For Python Developers (Aymen El Amri), by Packt Publishing.
 Some prompt engineering techniques:
 
 - Zero-shot learning: prompting an LLM without any examples.
-- Few-shot learning: prompting an LLM with examples of task.
+- Few-shot learning: prompting an LLM with examples of task. The principle of fine-tuning is a method of enhancing few-shot learning by training on a significantly larger number of examples. Once a model has been refined and enhanced, it’s no longer necessary to supply examples when you submit a request. This approach is cost-effective and accelerates requests. Fine-tuning is applicable for the following models: GPT-3.5-Turbo-1106, GPT-3.5-Turbo-0613, Babbage-002, Davinci-002 e GPT-4-0613
 - General knowledge prompting: ask the LLM to generate useful information about a given topic before generating a final response.
 - Chain of Thought (CoT): Shows the LLM examples of logical reasoning to approach a solution to instruct it to follow a similar m ethod of reasoning in its response.
 - Zero-shot CoT
