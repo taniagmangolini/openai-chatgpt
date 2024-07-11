@@ -138,3 +138,19 @@ def create_chat_completion(
 def create_embedding(model, input):
     response = client.embeddings.create(model=model, input=input)
     return response
+
+
+def files_create(file_path, purpose="fine-tune"):
+    """Upload file to fine-tunning"""
+    uploaded = client.files.create(file=open(file_path, "rb"), purpose="fine-tune")
+    return uploaded.id
+
+
+def fine_tuning_job_create(training_file, model="gpt-3.5-turbo"):
+    """Create a fine tunning job"""
+    return client.fine_tuning.jobs.create(training_file=training_file, model=model)
+
+
+def fine_tuning_job_retrieve(fine_tune_job_id):
+    """Retrieve a fine tunning job"""
+    return client.fine_tuning.jobs.retrieve(fine_tune_job_id)
