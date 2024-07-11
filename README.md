@@ -25,6 +25,13 @@ Embeddings represent real-world objects and relationships in the form of vectors
  Text embeddings represent text strings as vectors, enabling the measurement of similarity between them with the intention of finding the most relevant results for a search query (Search), grouping text strings based on their similarity (clustering), recommending items with similar text (recommendation), identifying text strings that greatly differ from others (anomaly detector), analyzing the differences between text strings (diversity), and labeling text strings based on their closest match (classification).
 
  “Ada” is one of the best models available on OpenAI for embedding.
+
+
+# Useful libs
+
+## Fuzzy search (similarity search)
+
+ https://github.com/life4/textdistance
  
 
 # Environment

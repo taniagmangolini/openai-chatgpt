@@ -28,16 +28,27 @@ def calc_cosine_similarity(a, b):
     return numerator / denominator
 
 
-def generate_embeddings_for_dataset(raw_dataset, column, nrows=50, preprocess=False):
+def calc_similarities(input, embeddings):
+    similarities = []
+    for embedding in embeddings:
+        similarity = calc_cosine_similarity(
+            input, 
+            embedding
+        )
+        similarities.append(similarity)
+    return similarities
+
+
+def generate_embeddings_for_dataset(raw_dataset, columns, nrows=50):
     """Generate the embeddings for dataset and save it
     to a file with extension _embeddings.csv"""
 
     logger.info(f"Generating embeddings for {raw_dataset}...")
     try:
         df = pd.read_csv(raw_dataset, nrows=nrows)
-        if preprocess:
-            df[column] = df[column].apply(preprocess_text)
-        df["embedding"] = df[column].apply(lambda x: get_embedding(x))
+        for column in columns:
+            df[f"{column}_preprocessed"] = df[column].apply(preprocess_text)
+            df[f"{column}_embedding"] = df[f"{column}_preprocessed"].apply(lambda x: get_embedding(x))
         output_filename = raw_dataset.replace(".csv", "_embeddings.csv")
         df.to_csv(output_filename)
         logger.info(f"Embeddings saved to {output_filename}.")
