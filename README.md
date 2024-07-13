@@ -4,7 +4,7 @@ Studies related to the book OpenAI GPT For Python Developers (Aymen El Amri).
 
 ## Prompt engineering techniques
 
-OpenAI GPT For Python Developers (Aymen El Amri), by Packt Publishing.
+Prompt Engineering is the process of designing prompts to steer the model towards generating the desired output.
 
 Some prompt engineering techniques:
 
@@ -17,6 +17,17 @@ Some prompt engineering techniques:
 - Self-consistency
 - Transfer Learning, ReAct (Reason + Act)
 - Others
+
+## Information Retrieval techniques
+Involves integrating the model with a system that retrieves information from a database or the internet.
+
+For instance, Retrieval-Augmented Generation (RAG) that is a AI language processing method that merges retrieval and generation techniques. In the retrieval stage, RAG employs a retrieval mechanism to collect pertinent information from a vast external knowledge base. The generation stage then utilizes the information retrieved earlier to generate a response.
+
+## Function Calling 
+ 
+Involves integrating external functions into the model’s responses. 
+ 
+For instance, in a travel recommendation chatbot, when a user requests weather information about a place, the chatbot could invoke an external weather API to obtain current weather data and incorporate this in the response.
 
 ## Embedding
 

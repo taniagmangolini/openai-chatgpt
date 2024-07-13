@@ -1,3 +1,5 @@
+'''See the docs: https://cookbook.openai.com/examples/chat_finetuning_data_prep'''
+
 import os
 import api
 from logger import Logger
