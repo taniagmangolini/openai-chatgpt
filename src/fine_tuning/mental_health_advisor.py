@@ -120,6 +120,8 @@ if not model:
     check_tuning_status(fine_tune_job)
 
 # using the model
+# This model is designed to provide a single response to a single input. 
+# It cannot handle a multiple turn conversation
 
 logger.info(f"Using the model {model}")
 
