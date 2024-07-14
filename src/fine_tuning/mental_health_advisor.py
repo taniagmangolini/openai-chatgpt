@@ -1,4 +1,5 @@
 import json, re
+import click
 import pandas as pd
 from pathlib import Path
 import api
@@ -7,6 +8,11 @@ from unidecode import unidecode
 from logger import Logger
 from datasets import load_dataset
 from fine_tuning.dataset_validator import validate_messages
+from fine_tuning.fine_tuning_model_creator import (
+    upload_tuning_file,
+    upload_tuning_job,
+    check_tuning_status,
+)
 
 
 logger = Logger().get_logger()
@@ -86,11 +92,65 @@ def format_messages(row):
         logger.info(f"Error: {e}\n Context: {context}\n Response: {response}")
 
 
-data = load_data()
-
-# generate messages
 if not Path(FILE_PATH).is_file():
-    data.apply(format_messages, axis=1)
 
-# validate messages
-validate_messages(FILE_PATH)
+    log.info("Loading data ...")
+    data = load_data()
+
+    # generate messages
+    if not Path(FILE_PATH).is_file():
+        data.apply(format_messages, axis=1)
+
+    # validate messages
+    validate_messages(FILE_PATH)
+
+
+# tuning a model if it not exists
+model = None
+with open(".env") as env:
+    for line in env:
+        key, value = line.strip().split("=")
+        if key == "FINE_TUNED_MODEL_HEALTH_COACH":
+            model = value
+            break
+
+if not model:
+    file_id = upload_tuning_file(FILE_PATH)
+    fine_tune_job = upload_tuning_job(file_id)
+    check_tuning_status(fine_tune_job)
+
+# using the model
+
+logger.info(f"Using the model {model}")
+
+base_messages = [
+    {"role": "system", "content": get_system_content()},
+    {
+        "role": "assistant",
+        "content": "My name is MendMind. "
+        "I'm an AI Mental Health Coach. "
+        "How can I help you today?",
+    },
+]
+
+while True:
+    messages = base_messages.copy()
+
+    # read the user input
+    request = input(click.style("Input: (type 'exit' to quit): ", fg="green"))
+
+    if request.lower() in ["exit", "quit"]:
+        break
+
+    # add the user input to the messages
+    messages.append({"role": "user", "content": f"{request}"})
+
+    # send the messages to the API
+    content = api.create_chat_completion(
+        model, messages, temperature=0.7, frequency_penalty=0.5, presence_penalty=0.5
+    )
+
+    # Print the command in a nice way
+    click.echo(click.style("Output: ", fg="yellow") + content)
+
+    click.echo()
