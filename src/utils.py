@@ -31,10 +31,7 @@ def calc_cosine_similarity(a, b):
 def calc_similarities(input, embeddings):
     similarities = []
     for embedding in embeddings:
-        similarity = calc_cosine_similarity(
-            input, 
-            embedding
-        )
+        similarity = calc_cosine_similarity(input, embedding)
         similarities.append(similarity)
     return similarities
 
@@ -48,7 +45,9 @@ def generate_embeddings_for_dataset(raw_dataset, columns, nrows=50):
         df = pd.read_csv(raw_dataset, nrows=nrows)
         for column in columns:
             df[f"{column}_preprocessed"] = df[column].apply(preprocess_text)
-            df[f"{column}_embedding"] = df[f"{column}_preprocessed"].apply(lambda x: get_embedding(x))
+            df[f"{column}_embedding"] = df[f"{column}_preprocessed"].apply(
+                lambda x: get_embedding(x)
+            )
         output_filename = raw_dataset.replace(".csv", "_embeddings.csv")
         df.to_csv(output_filename)
         logger.info(f"Embeddings saved to {output_filename}.")
@@ -58,32 +57,32 @@ def generate_embeddings_for_dataset(raw_dataset, columns, nrows=50):
 
 
 def download_nltk_data():
-    '''Download the datasets and models required by the 
+    """Download the datasets and models required by the
     NLTK (Natural Language Toolkit) library:
     - tokenizers/punkt: Punkt tokenizer model (used to divide a text into a list of sentences using an unsupervised algorithm);s
     - corpora/stopwords: dataset of stopwords that are usually removed in the preprocessing step.
-    '''
+    """
 
     # Check and download the 'punkt' tokenizer models
     try:
-        nltk.data.find('tokenizers/punkt')
+        nltk.data.find("tokenizers/punkt")
     except LookupError:
-        nltk.download('punkt')
+        nltk.download("punkt")
 
     # Check and download the 'stopwords' corpus
     try:
-        nltk.data.find('corpora/stopwords')
+        nltk.data.find("corpora/stopwords")
     except LookupError:
-        nltk.download('stopwords')
+        nltk.download("stopwords")
 
 
 def preprocess_text(text):
-    '''Preprocess text by tokenizing (splitting a text into a list of words or sentences),
-    converting to lowercase, removing punctuation, removing stopwords and 
+    """Preprocess text by tokenizing (splitting a text into a list of words or sentences),
+    converting to lowercase, removing punctuation, removing stopwords and
     stemming (converts words to their root form. For example, running is converted to run).
     This is done to reduce the vocabulary size (an alternative is to use Lemmatization, that is
     a more accurated way to do this because it considers the grammatical rules and context).
-    '''
+    """
     from nltk.corpus import stopwords
     from nltk.stem import PorterStemmer
     from nltk.tokenize import word_tokenize
@@ -94,24 +93,16 @@ def preprocess_text(text):
     tokens = word_tokenize(text)
 
     # Convert to lower case
-    tokens = [
-        word.lower() for word in tokens
-    ]
+    tokens = [word.lower() for word in tokens]
 
     # Remove punctuation
-    words = [
-        word for word in tokens if word.isalpha()
-    ]
+    words = [word for word in tokens if word.isalpha()]
 
     # Filter out stop words
-    words = [
-        word for word in words if word not in set(stopwords.words('english'))
-    ]
+    words = [word for word in words if word not in set(stopwords.words("english"))]
 
     # Stemming
     stemmer = PorterStemmer()
-    stemmed_words = [
-        stemmer.stem(word) for word in words
-    ]
+    stemmed_words = [stemmer.stem(word) for word in words]
 
-    return ' '.join(stemmed_words)
+    return " ".join(stemmed_words)

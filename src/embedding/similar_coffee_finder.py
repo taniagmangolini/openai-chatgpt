@@ -36,8 +36,8 @@ except:
     logger.info(
         f"We could not find {user_search}. We will search for the most similar one..."
     )
-    # Calculate the cosine similarity between the input coffee's name and 
-    #all other names and get the higher similarity
+    # Calculate the cosine similarity between the input coffee's name and
+    # all other names and get the higher similarity
     input_name_embedding = get_embedding(user_search)
     names_similarities = calc_similarities(
         input_name_embedding, list(df["name_embedding"].values)
