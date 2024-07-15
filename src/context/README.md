@@ -19,6 +19,6 @@ and the past interactions in order to selected the closests ones.
 Another considerations that can help to improve the results:
 
 - Choose a more advanced algorithm that carries over the entire contex
-- Use a vector database for storing history and performing sorting
+- Use a vector database for storing history and performing sorting (Ex. Faiss, Annoy, Milvus, Weaviate, etc)
 - Adjusting the number of interactions to carry over based on the user’s prompt and context
 - Request more than one response from the API and select the more similar to the context

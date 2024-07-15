@@ -73,12 +73,11 @@ while True:
 
     user_prompt = {"role": "user", "content": request}
 
-    # Load the history from the file and append the new messages
     full_history = load_history_from_file()
     sorted_history = sort_history(full_history, request, context_window)
     sorted_history.append(user_prompt)
     messages = global_context + sorted_history
-    # Send the messages to the API
+
     response = api.create_chat_completion(
         model=model,
         messages=messages,
@@ -86,18 +85,17 @@ while True:
         temperature=1,
     )
 
-    # Debug: print the history
+
     click.echo(
         click.style("History: ", fg="blue") + str(json.dumps(messages, indent=4))
     )
 
-    # Print the command in a nice way
     click.echo(click.style("Output: ", fg="yellow") + response)
 
-    # Add the user prompt to the history
+
     full_history.append(user_prompt)
-    # Add the response to the history
+
     full_history.append({"role": "assistant", "content": response})
 
-    # Save the history to a file
+
     save_history_to_file(full_history)
