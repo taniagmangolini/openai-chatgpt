@@ -33,19 +33,23 @@ class WeaviateClient:
             self.logger.error(f"Error while deleting class: {e}")
             return {"error in weaviate_reset": str(e)}, 500
 
-    def weaviate_semantic_search(self, query):
+    def weaviate_semantic_search(self, query, prompt):
         nearText = {
             "concepts": [query],
         }
 
         properties = ["title", "content", "_additional {distance}"]
 
-        limit = 2
+        limit = 1
 
         response = (
             self.client.query.get(
                 class_name=self.class_name,
                 properties=properties,
+            )
+            .with_generate(
+                single_prompt=prompt
+                #grouped_task=prompt
             )
             .with_near_text(nearText)
             .with_limit(limit)

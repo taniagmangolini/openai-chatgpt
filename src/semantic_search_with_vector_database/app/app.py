@@ -7,19 +7,13 @@ from weaviate_client import WeaviateClient
 app = Flask(__name__)
 
 
-openai_api_key = os.environ["API_KEY"]
-system_prompt = "You are a helpful assitant"
-system_prompt = {"role": "system", "content": system_prompt}
-
-weaviate_limit = 10
-interactions_limit = 10
-weaviate_certainty = 0.5
-
-
 with open(".env") as env:
     for line in env:
         key, value = line.strip().split("=")
         os.environ[key] = value
+
+openai_api_key = os.environ["API_KEY"]
+
 
 schema = {
     "class": "Wikipedia",
@@ -32,7 +26,12 @@ schema = {
             "modelVersion": "002",
             "type": "text",
             "vectorizeClassName": False,
-        }
+        },
+       "generative-openai": {
+          "model": "gpt-3.5-turbo",  
+          "temperatureProperty": 2,  
+          "maxTokensProperty": 100, 
+        },
     },
     "properties": [
         {
@@ -60,9 +59,15 @@ weaviate_client.weaviate_import_data('data/wikipedia_data.csv')
 @app.route("/ask", methods=["GET"])
 def ask():
     question = request.args.get("q")
+    prompt = """
+            Summarize the following in a tweet in Portuguese:
 
+            {title} - {content}
+            """
+    
     context = weaviate_client.weaviate_semantic_search(
         question, 
+        prompt
     )
 
     return {
