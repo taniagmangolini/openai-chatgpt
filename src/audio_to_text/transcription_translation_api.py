@@ -8,7 +8,7 @@ logger = Logger().get_logger()
 
 if __name__ == "__main__":
     try:
-        audio_file = "translations_transcriptions/data/Winston_Church.ogg"
+        audio_file = "audio_to_text/data/Winston_Church.ogg"
         logger.info("Transcription by API:")
         text = api.transcribe_audio(audio_file)
 
