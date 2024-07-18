@@ -14,7 +14,7 @@ if __name__ == "__main__":
         exit(1)
 
     try:
-        audio_file = "translations_transcriptions/data/Winston_Church.ogg"
+        audio_file = "audio_to_text/data/Winston_Church.ogg"
 
         logger.info("Transcription (original language):")
         transcription = model.transcribe(audio_file)
