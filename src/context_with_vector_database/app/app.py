@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 openai_api_key = os.environ["API_KEY"]
 system_prompt = "You are a helpful assitant"
-system_prompt = {"role": "system", "content": system_prompt} 
+system_prompt = {"role": "system", "content": system_prompt}
 
 weaviate_limit = 10
 interactions_limit = 10

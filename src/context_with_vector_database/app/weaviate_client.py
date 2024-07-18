@@ -8,7 +8,6 @@ class WeaviateClient:
         self.class_name = class_name
         self.url = "http://weaviate:8080"
         self.client = self.get_client(openai_api_key)
- 
 
     def get_client(self, openai_api_key):
         return weaviate.Client(
@@ -25,9 +24,7 @@ class WeaviateClient:
 
     def weaviate_delete_data(self):
         try:
-            self.client.schema.delete_class(
-                class_name=self.class_name
-            )
+            self.client.schema.delete_class(class_name=self.class_name)
             self.logger.info("Data successfully reset.")
         except Exception as e:
             self.logger.error(f"Error while deleting class: {e}")

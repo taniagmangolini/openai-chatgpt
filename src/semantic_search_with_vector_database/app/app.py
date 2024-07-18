@@ -27,10 +27,10 @@ schema = {
             "type": "text",
             "vectorizeClassName": False,
         },
-       "generative-openai": {
-          "model": "gpt-3.5-turbo",  
-          "temperatureProperty": 2,  
-          "maxTokensProperty": 100, 
+        "generative-openai": {
+            "model": "gpt-3.5-turbo",
+            "temperatureProperty": 2,
+            "maxTokensProperty": 100,
         },
     },
     "properties": [
@@ -53,7 +53,7 @@ openai_client = OpenAI(api_key=openai_api_key, organization=os.environ["ORG_ID"]
 weaviate_client = WeaviateClient(app.logger, "Wikipedia", openai_api_key)
 weaviate_client.weaviate_delete_data()
 weaviate_client.weaviate_create_schema(schema)
-weaviate_client.weaviate_import_data('data/wikipedia_data.csv')
+weaviate_client.weaviate_import_data("data/wikipedia_data.csv")
 
 
 @app.route("/ask", methods=["GET"])
@@ -64,12 +64,7 @@ def ask():
 
             {title} - {content}
             """
-    
-    context = weaviate_client.weaviate_semantic_search(
-        question, 
-        prompt
-    )
 
-    return {
-        "response": context
-    }
+    context = weaviate_client.weaviate_semantic_search(question, prompt)
+
+    return {"response": context}

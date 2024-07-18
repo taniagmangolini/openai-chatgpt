@@ -85,17 +85,14 @@ while True:
         temperature=1,
     )
 
-
     click.echo(
         click.style("History: ", fg="blue") + str(json.dumps(messages, indent=4))
     )
 
     click.echo(click.style("Output: ", fg="yellow") + response)
 
-
     full_history.append(user_prompt)
 
     full_history.append({"role": "assistant", "content": response})
-
 
     save_history_to_file(full_history)

@@ -154,3 +154,22 @@ def fine_tuning_job_create(training_file, model="gpt-3.5-turbo"):
 def fine_tuning_job_retrieve(fine_tune_job_id):
     """Retrieve a fine tunning job"""
     return client.fine_tuning.jobs.retrieve(fine_tune_job_id)
+
+
+def transcribe_audio(audio_file, model="whisper-1"):
+    """Transcribe the audio file to text.
+    Docs:
+    https://platform.openai.com/docs/api-reference/audio/createTranscription"""
+    transcript = ""
+    with open(audio_file, "rb") as audio_file:
+        transcript = client.audio.transcriptions.create(model=model, file=audio_file)
+    return transcript.text
+
+
+def translate_audio_to_en(audio_file, model="whisper-1"):
+    """Translate the audio file to English (only English available).
+    Docs: https://platform.openai.com/docs/guides/speech-to-text/quickstart"""
+    transcript = ""
+    with open(audio_file_path, "rb") as audio_file:
+        transcript = client.audio.translations.create(model=model, file=audio_file)
+    return transcript.text

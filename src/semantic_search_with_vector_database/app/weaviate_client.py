@@ -25,9 +25,7 @@ class WeaviateClient:
 
     def weaviate_delete_data(self):
         try:
-            self.client.schema.delete_class(
-                class_name=self.class_name
-            )
+            self.client.schema.delete_class(class_name=self.class_name)
             self.logger.info("Data successfully reset.")
         except Exception as e:
             self.logger.error(f"Error while deleting class: {e}")
@@ -49,7 +47,7 @@ class WeaviateClient:
             )
             .with_generate(
                 single_prompt=prompt
-                #grouped_task=prompt
+                # grouped_task=prompt
             )
             .with_near_text(nearText)
             .with_limit(limit)
