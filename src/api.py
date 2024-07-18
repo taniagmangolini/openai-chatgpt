@@ -173,3 +173,13 @@ def translate_audio_to_en(audio_file, model="whisper-1"):
     with open(audio_file_path, "rb") as audio_file:
         transcript = client.audio.translations.create(model=model, file=audio_file)
     return transcript.text
+
+
+def convert_text_to_speech(voice_character, text, model="tts-1"):
+    """ Converts a text to speech using neural models.
+    """
+    return client.audio.speech.create(
+        model=model,
+        voice=voice_character,
+        input=text
+    )
