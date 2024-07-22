@@ -23,7 +23,7 @@ bash scripts/download_models.sh
 ```
 
 ```
-python3 inference.py --driven_audio ../../text_to_speech/data/example.mp3 --source_image examples/source_image/happy1.png --enhancer gfpgan
+python3 SadTalker inference.py --driven_audio ../../text_to_speech/data/example.mp3 --source_image examples/source_image/happy1.png --enhancer gfpgan
 ```
 
 A colab example can be found here: https://colab.research.google.com/github/Winfredy/SadTalker/blob/main/quick_demo.ipynb#scrollTo=eDw3_UN8K2xa
