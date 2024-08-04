@@ -18,7 +18,7 @@ Some prompt engineering techniques:
 - Transfer Learning, ReAct (Reason + Act)
 - Others
 
-## Information Retrieval techniques
+## Information retrieval techniques
 Involves integrating the model with a system that retrieves information from a database or the internet.
 
 For instance, Retrieval-Augmented Generation (RAG) that is a AI language processing method that merges retrieval and generation techniques. In the retrieval stage, RAG employs a retrieval mechanism to collect pertinent information from a vast external knowledge base. The generation stage then utilizes the information retrieved earlier to generate a response.
